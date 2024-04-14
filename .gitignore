@@ -54,6 +54,9 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
+#vercel
+.vercel
+
 # dotenv environment variables file
 .env
 
@@ -73,3 +76,5 @@ typings/
 .serverless
 
 dist
+.vercel
+.env*.local
