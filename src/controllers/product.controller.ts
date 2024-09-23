@@ -81,7 +81,7 @@ router.get(
 
 router.post(
   '/product',
-  auth.optional,
+  auth.required,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const posType = req.query?.posType;

@@ -90,17 +90,56 @@ model OrderItem {
 }
 
 model User {
-    id        String     @id @default(cuid())
-    clerkId   String
-    username  String?
-    password  String?    @map(name: "hashed_password")
-    email     String?    @unique
-    createdAt DateTime   @default(now()) @map(name: "created_at")
-    updatedAt DateTime   @updatedAt @map(name: "updated_at")
-    Employee  Employee[]
+  id              String             @id @default(cuid())
+  clerkId         String
+  username        String?            @unique
+  password        String?            @map(name: "hashed_password")
+  email           String?            @unique
+  userType        String
+  createdAt       DateTime           @default(now()) @map(name: "created_at")
+  updatedAt       DateTime           @updatedAt @map(name: "updated_at")
+  Employee        Employee[]?
+  stores          Store[]?            // Relation with Store model
+  subscriptions   UserSubscription[]? // Relation with UserSubscription model
 
-    @@map(name: "users")
+  @@map(name: "users")
 }
+
+model SubscriptionType {
+  id              String             @id @default(cuid())
+  name            String             @unique
+  price           Float
+  durationMonths  Int                // Duration of the subscription in months
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  users           UserSubscription[] // Relation with UserSubscription model
+}
+
+model Store {
+  id              String             @id @default(cuid())
+  name            String
+  address         String
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  userId          String
+  user            User               @relation(fields: [userId], references: [id])
+
+  @@map(name: "stores")
+}
+
+model UserSubscription {
+  id              String             @id @default(cuid())
+  userId          String
+  subscriptionId  String
+  startDate       DateTime           @default(now())
+  endDate         DateTime?
+  user            User               @relation(fields: [userId], references: [id])
+  subscription    SubscriptionType   @relation(fields: [subscriptionId], references: [id])
+
+  @@map(name: "user_subscriptions")
+}
+
+
 
 model Employee {
     id           String    @id @default(cuid())
