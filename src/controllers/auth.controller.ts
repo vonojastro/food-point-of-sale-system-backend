@@ -43,7 +43,7 @@ router.post(
 
 router.get(
   '/user',
-  auth.required,
+  auth.optional,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       res.json({ message: 'success' });
