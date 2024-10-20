@@ -31,6 +31,7 @@ export const createUser = async (input: RegisteredUser): Promise<RegisteredUser>
   const email = input.email?.trim();
   const username = input.username?.trim();
   const password = input.password?.trim();
+  const userType = input.userType?.trim(); // Extract userType from input
 
   if (!email) {
     throw new HttpException(422, { errors: { email: ["can't be blank"] } });
@@ -44,6 +45,10 @@ export const createUser = async (input: RegisteredUser): Promise<RegisteredUser>
     throw new HttpException(422, { errors: { password: ["can't be blank"] } });
   }
 
+  if (!userType) {
+    throw new HttpException(422, { errors: { userType: ["can't be blank"] } }); // Check if userType is provided
+  }
+
   await checkUserUniqueness(email, username);
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -54,6 +59,7 @@ export const createUser = async (input: RegisteredUser): Promise<RegisteredUser>
       username,
       email,
       password: hashedPassword,
+      userType, // Add userType here
     },
     select: {
       email: true,
@@ -90,7 +96,7 @@ export const login = async (userPayload: any) => {
     },
   });
 
-  if (user && user.password) {  // Check if password is not null
+  if (user && user.password) { // Check if password is not null
     const match = await bcrypt.compare(password, user.password);
 
     if (match) {

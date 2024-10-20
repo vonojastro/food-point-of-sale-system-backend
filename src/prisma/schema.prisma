@@ -95,12 +95,12 @@ model User {
   username        String?            @unique
   password        String?            @map(name: "hashed_password")
   email           String?            @unique
-  userType        String
   createdAt       DateTime           @default(now()) @map(name: "created_at")
+  userType        String             @default("Admin") // Default value set to "Admin"  createdAt       DateTime           @default(now()) @map(name: "created_at")
   updatedAt       DateTime           @updatedAt @map(name: "updated_at")
-  Employee        Employee[]?
-  stores          Store[]?            // Relation with Store model
-  subscriptions   UserSubscription[]? // Relation with UserSubscription model
+  Employee        Employee[]         // Removed "?" for optional list
+  stores          Store[]            // Removed "?" for optional list
+  subscriptions   UserSubscription[] // Removed "?" for optional list
 
   @@map(name: "users")
 }
