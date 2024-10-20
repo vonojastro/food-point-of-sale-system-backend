@@ -24,7 +24,7 @@ app.get<{}, MessageResponse>('/', (req, res) => {
   });
 });
 
-app.use('/api/v1', api);
+app.use('/api', api);
 app.use(routes);
 
 app.use(middlewares.notFound);

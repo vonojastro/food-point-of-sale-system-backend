@@ -16,7 +16,7 @@
     "./api/*.ts",
 
     "src/**/*.ts",
-
+    "src/prisma/prisma-client.d.ts", // Adjust this path as necessary
     "test/**/*.ts", "src/lib/prisma.js", "src/prisma/prisma-client.js", "src/prisma/prisma-client.js", "src/controllers/user.controller.ts", "src/controllers/user.controller.ts", "src/controllers/user.controller.ts", "src/controllers/user.controller.ts", "src/webhooks/route.ts", "src/webhooks/route.js", "src/webhooks/route.js", "src/controllers/user.controller.tsx",
   ],
 }
