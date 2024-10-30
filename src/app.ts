@@ -5,7 +5,6 @@ import cors from 'cors';
 
 import * as middlewares from './middlewares';
 
-import api from './api';
 import MessageResponse from './interfaces/MessageResponse';
 import routes from './routes/routes';
 
@@ -24,7 +23,6 @@ app.get<{}, MessageResponse>('/', (req, res) => {
   });
 });
 
-app.use('/api', api);
 app.use(routes);
 
 app.use(middlewares.notFound);
